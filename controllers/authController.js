@@ -46,7 +46,8 @@ const registerUser = async(req,res) => {
 }
 
 const generateAccessToken = async(user) => {
-    jwt.sign(user,)
+   const token =  jwt.sign(user,process.env.ACCESS_SECRET_TOKEN, {expireIn: "2h"})
+   return token;
 }
 
 const loginUser = async(req, res) => {
@@ -81,9 +82,12 @@ const loginUser = async(req, res) => {
             })
         }
 
+        const accessToken = await generateAccessToken({user: userData})
         return res.status(200).json({
             success: true,
             msg: 'Login Successfully',
+            accessToken: accessToken,
+            tokenType:  'Bearer',  //Giving the type of Token
             data: userData
         })
 
