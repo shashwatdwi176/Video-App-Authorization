@@ -7,8 +7,15 @@ const app = express();
 app.use(express.json());
 app.use(express.static('public'));
 
+//authRoute
 const authRoute = require('./routes/authRoute')
 app.use('/api',authRoute)
+
+//adminRoute
+const adminRoute = require('./routes/adminRoute')
+app.use('/api/admin',adminRoute)
+
+
 const port = process.env.SERVER_PORT
 app.listen(port, () => {
     console.log("Server is running on Port:- "+port);
